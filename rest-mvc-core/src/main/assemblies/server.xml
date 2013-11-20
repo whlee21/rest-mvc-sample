@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+
+<assembly>
+	<id>dist</id>
+	<formats>
+		<format>dir</format>
+		<format>tar.gz</format>
+	</formats>
+	<includeBaseDirectory>false</includeBaseDirectory>
+	<files>
+		<file>
+			<source>${project.build.directory}/${artifact.artifactId}-${artifact.version}.jar</source>
+			<outputDirectory>rest-mvc-core-${project.version}/lib/rest-mvc-core</outputDirectory>
+		</file>
+	</files>
+	<fileSets>
+		<!-- Distro files, readme, licenses, etc -->
+		<fileSet>
+			<directory>${basedir}/../</directory>
+			<outputDirectory>rest-mvc-core-${project.version}/</outputDirectory>
+			<includes>
+				<include>*.txt</include>
+			</includes>
+		</fileSet>
+		<fileSet>
+			<directory>${basedir}/../rest-mvc-web/public</directory>
+			<outputDirectory>/rest-mvc-core-${project.version}/web</outputDirectory>
+			<includes>
+				<include>**</include>
+			</includes>
+		</fileSet>
+		<fileSet>
+			<directory>src/main/conf</directory>
+			<outputDirectory>/rest-mvc-core-${project.version}/etc/rest-mvc-core/conf</outputDirectory>
+		</fileSet>
+	</fileSets>
+	<dependencySets>
+		<dependencySet>
+			<outputDirectory>rest-mvc-core-${project.version}/lib/rest-mvc-core</outputDirectory>
+			<unpack>false</unpack>
+			<scope>compile</scope>
+		</dependencySet>
+	</dependencySets>
+</assembly>
