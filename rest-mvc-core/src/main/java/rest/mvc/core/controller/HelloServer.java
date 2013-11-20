@@ -17,13 +17,16 @@ import org.springframework.web.context.support.GenericWebApplicationContext;
 import org.xnap.commons.i18n.I18n;
 import org.xnap.commons.i18n.I18nFactory;
 
+import rest.mvc.core.configuration.Configuration;
 import rest.mvc.core.servlet.HelloGuiceServletConfig;
 
 import com.google.inject.Guice;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
+import com.google.inject.Singleton;
 import com.google.inject.servlet.GuiceFilter;
 
+@Singleton
 public class HelloServer {
 	private static final Logger LOG = LoggerFactory.getLogger(HelloServer.class);
 	
@@ -33,6 +36,9 @@ public class HelloServer {
 
 	final String CONTEXT_PATH = "/";
 
+  @Inject
+  Configuration configs;
+  
 	@Inject
 	Injector injector;
 
@@ -64,6 +70,9 @@ public class HelloServer {
 			GenericWebApplicationContext springWebAppContext = new GenericWebApplicationContext();
 			springWebAppContext.setServletContext(root.getServletContext());
 			springWebAppContext.setParent(springAppContext);
+			
+			/* Configure web app context */
+			root.setResourceBase(configs.getWebAppDir());
 
 			root.getServletContext().setAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE,
 					springWebAppContext);
