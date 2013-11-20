@@ -2,3 +2,4 @@ target
 .classpath
 .settings
 .project
+rest-mvc-core/rest-mvc.log
