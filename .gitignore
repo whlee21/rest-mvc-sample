@@ -3,3 +3,4 @@ target
 .settings
 .project
 rest-mvc-core/rest-mvc.log
+rest-mvc-core/src/main/i18n/keys.pot

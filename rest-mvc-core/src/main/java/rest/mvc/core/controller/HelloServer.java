@@ -7,6 +7,7 @@ import org.eclipse.jetty.server.nio.SelectChannelConnector;
 import org.eclipse.jetty.server.session.HashSessionManager;
 import org.eclipse.jetty.servlet.DefaultServlet;
 import org.eclipse.jetty.servlet.ServletContextHandler;
+import org.eclipse.jetty.servlet.ServletHolder;
 import org.eclipse.jetty.util.thread.QueuedThreadPool;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,26 +20,28 @@ import org.xnap.commons.i18n.I18nFactory;
 
 import rest.mvc.core.configuration.Configuration;
 import rest.mvc.core.servlet.HelloGuiceServletConfig;
+import rest.mvc.core.servlet.HelloServletModule;
 
 import com.google.inject.Guice;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
+import com.google.inject.Module;
 import com.google.inject.Singleton;
 import com.google.inject.servlet.GuiceFilter;
 
 @Singleton
 public class HelloServer {
 	private static final Logger LOG = LoggerFactory.getLogger(HelloServer.class);
-	
+
 	private static I18n i18n = I18nFactory.getI18n(HelloServer.class);
 
 	private Server server = null;
 
 	final String CONTEXT_PATH = "/";
 
-  @Inject
-  Configuration configs;
-  
+	@Inject
+	Configuration configs;
+
 	@Inject
 	Injector injector;
 
@@ -70,7 +73,7 @@ public class HelloServer {
 			GenericWebApplicationContext springWebAppContext = new GenericWebApplicationContext();
 			springWebAppContext.setServletContext(root.getServletContext());
 			springWebAppContext.setParent(springAppContext);
-			
+
 			/* Configure web app context */
 			root.setResourceBase(configs.getWebAppDir());
 
@@ -84,7 +87,8 @@ public class HelloServer {
 			// Must add DefaultServlet for embedded Jetty.
 			// Failing to do this will cause 404 errors.
 			// This is not needed if web.xml is used instead.
-			root.addServlet(DefaultServlet.class, "/");
+			ServletHolder rootServlet = root.addServlet(DefaultServlet.class, "/");
+			rootServlet.setInitOrder(1);
 
 			server.setThreadPool(new QueuedThreadPool(25));
 
@@ -101,7 +105,7 @@ public class HelloServer {
 			server.start();
 			server.join();
 		} catch (BindException bindException) {
-			LOG.error("Could not bind to server port - instance may already be running. " + "Terminating this instance.",
+			LOG.error(i18n.tr("Could not bind to server port - instance may already be running. Terminating this instance."),
 					bindException);
 			throw bindException;
 		}
@@ -111,21 +115,21 @@ public class HelloServer {
 		try {
 			server.stop();
 		} catch (Exception e) {
-			LOG.error("Error stopping the server", e);
+			LOG.error(i18n.tr("Error stopping the server"), e);
 		}
 	}
 
 	public static void main(String[] args) throws Exception {
-		Injector injector = Guice.createInjector(new HelloModule());
+		Injector injector = Guice.createInjector(new Module[] { new HelloModule(), new HelloServletModule()});
 		HelloServer server = null;
 		try {
-			LOG.info("Getting the controller");
+			LOG.info(i18n.tr("Getting the controller"));
 			server = injector.getInstance(HelloServer.class);
 			if (server != null) {
 				server.run();
 			}
 		} catch (Throwable t) {
-			LOG.error("Failed to run the Gaia Search Server", t);
+			LOG.error(i18n.tr("Failed to run Hello Server"), t);
 			if (server != null) {
 				server.stop();
 			}

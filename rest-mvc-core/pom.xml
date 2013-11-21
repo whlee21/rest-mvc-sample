@@ -42,6 +42,10 @@
 			<artifactId>slf4j-log4j12</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>com.google.inject</groupId>
 			<artifactId>guice</artifactId>
 		</dependency>
@@ -80,14 +84,6 @@
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-ldap</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.directory.shared</groupId>
-			<artifactId>shared-ldap</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.google.code.gson</groupId>
-			<artifactId>gson</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.codehaus.jackson</groupId>
@@ -146,39 +142,12 @@
 			<artifactId>gettext-commons</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>gaia</groupId>
-			<artifactId>licensing-core</artifactId>
-		</dependency>
-		<dependency>
 			<groupId>org.eclipse.persistence</groupId>
 			<artifactId>eclipselink</artifactId>
 		</dependency>
 	</dependencies>
 	<build>
 		<plugins>
-			<!-- <plugin> -->
-			<!-- <groupId>com.github.wvengen</groupId> -->
-			<!-- <artifactId>proguard-maven-plugin</artifactId> -->
-			<!-- <executions> -->
-			<!-- <execution> -->
-			<!-- <id>proguard</id> -->
-			<!-- <phase>package</phase> -->
-			<!-- <goals> -->
-			<!-- <goal>proguard</goal> -->
-			<!-- </goals> -->
-			<!-- </execution> -->
-			<!-- </executions> -->
-			<!-- <configuration> -->
-			<!-- <libs> -->
-			<!-- <lib>${java.bootstrap.classes}</lib> -->
-			<!-- <lib>${java.cryptographic.extension.classes}</lib> -->
-			<!-- <lib>${java.secure.socket.extension.classes}</lib> -->
-			<!-- </libs> -->
-			<!-- <obfuscate>true</obfuscate> -->
-			<!-- <addMavenDescriptor>false</addMavenDescriptor> -->
-			<!-- <proguardInclude>${project.basedir}/proguard.conf</proguardInclude> -->
-			<!-- </configuration> -->
-			<!-- </plugin> -->
 			<plugin>
 				<artifactId>maven-assembly-plugin</artifactId>
 				<executions>
@@ -213,25 +182,6 @@
 					</descriptors>
 				</configuration>
 			</plugin>
-
-			<!-- <plugin> -->
-			<!-- <groupId>org.dstovall</groupId> -->
-			<!-- <artifactId>onejar-maven-plugin</artifactId> -->
-			<!-- <version>1.4.4</version> -->
-			<!-- <executions> -->
-			<!-- <execution> -->
-			<!-- <configuration> -->
-			<!-- <mainClass>gaia.search.server.controller.GaiaSearchServer</mainClass> -->
-			<!-- <attachToBuild>true</attachToBuild> -->
-			<!-- <classifier>onejar</classifier> -->
-			<!-- </configuration> -->
-			<!-- <goals> -->
-			<!-- <goal>one-jar</goal> -->
-			<!-- </goals> -->
-			<!-- </execution> -->
-			<!-- </executions> -->
-			<!-- </plugin> -->
-
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>rpm-maven-plugin</artifactId>
@@ -242,129 +192,6 @@
 							<goal>rpm</goal>
 							<goal>attached-rpm</goal>
 						</goals>
-						<configuration>
-							<copyright>2012, Apache Software Foundation</copyright>
-							<version>1.2.2-SNAPSHOT</version>
-							<group>Development</group>
-							<description>Maven Recipe: RPM Package.</description>
-							<requires>
-								<require>python >= 2.6</require>
-							</requires>
-							<preremoveScriptlet>
-								<script>mv /etc/gaia-server/conf /etc/gaia-server/conf.save</script>
-							</preremoveScriptlet>
-							<mappings>
-								<mapping>
-									<directory>/usr/lib/gaia-server</directory>
-									<dependency></dependency>
-									<filemode>755</filemode>
-									<username>root</username>
-									<groupname>root</groupname>
-								</mapping>
-								<mapping>
-									<directory>/usr/lib/gaia-server/web</directory>
-									<filemode>755</filemode>
-									<username>root</username>
-									<groupname>root</groupname>
-									<sources>
-										<source>
-											<location>../gaia-web/public</location>
-											<includes>
-												<include>**</include>
-											</includes>
-										</source>
-									</sources>
-								</mapping>
-								<mapping>
-									<directory>/usr/lib/gaia-server</directory>
-									<filemode>755</filemode>
-									<username>root</username>
-									<groupname>root</groupname>
-									<sources>
-										<source>
-											<location>target/gaia-server-0.1.jar</location>
-										</source>
-									</sources>
-								</mapping>
-								<mapping>
-									<directory>/usr/sbin</directory>
-									<filemode>755</filemode>
-									<username>root</username>
-									<groupname>root</groupname>
-									<sources>
-										<source>
-											<location>src/main/python/gaia-server.py</location>
-										</source>
-									</sources>
-								</mapping>
-								<mapping>
-									<directory>/usr/sbin</directory>
-									<filemode>755</filemode>
-									<username>root</username>
-									<groupname>root</groupname>
-									<sources>
-										<source>
-											<location>sbin/gaia-server-server</location>
-										</source>
-									</sources>
-								</mapping>
-								<mapping>
-									<directory>/etc/gaia-server/conf</directory>
-									<filemode>755</filemode>
-									<username>root</username>
-									<groupname>root</groupname>
-									<configuration>true</configuration>
-									<sources>
-										<source>
-											<location>conf/unix/gaia.properties</location>
-										</source>
-										<source>
-											<location>conf/unix/log4j.properties</location>
-										</source>
-									</sources>
-								</mapping>
-								<mapping>
-									<directory>/var/lib/gaia-server/</directory>
-									<filemode>700</filemode>
-									<username>root</username>
-									<groupname>root</groupname>
-									<sources>
-										<source>
-											<location>conf/unix/gaia-env.sh</location>
-										</source>
-									</sources>
-								</mapping>
-								<!-- <mapping> -->
-								<!-- <directory>/var/run/gaia-server/bootstrap</directory> -->
-								<!-- <filemode>755</filemode> -->
-								<!-- <username>root</username> -->
-								<!-- <groupname>root</groupname> -->
-								<!-- </mapping> -->
-								<mapping>
-									<directory>/var/log/gaia-server</directory>
-									<filemode>755</filemode>
-									<username>root</username>
-									<groupname>root</groupname>
-								</mapping>
-								<!-- <mapping> -->
-								<!-- <directory>/usr/lib/python2.6/site-packages/gaia_server</directory> -->
-								<!-- <filemode>755</filemode> -->
-								<!-- <username>root</username> -->
-								<!-- <groupname>root</groupname> -->
-								<!-- <sources> -->
-								<!-- <source> -->
-								<!-- <location>src/main/python/bootstrap.py</location> -->
-								<!-- </source> -->
-								<!-- </sources> -->
-								<!-- </mapping> -->
-								<mapping>
-									<directory>/var/run/gaia-server</directory>
-									<filemode>755</filemode>
-									<username>root</username>
-									<groupname>root</groupname>
-								</mapping>
-							</mappings>
-						</configuration>
 					</execution>
 				</executions>
 				<configuration>
@@ -376,38 +203,42 @@
 						<require>python >= 2.6</require>
 					</requires>
 					<preremoveScriptlet>
-						<script>mv /etc/gaia-server/conf /etc/gaia-server/conf.save</script>
+						<script>mv /etc/rest-mvc-core/conf /etc/rest-mvc-core/conf.save</script>
 					</preremoveScriptlet>
+					<defaultFilemode>644</defaultFilemode>
+					<defaultDirmode>755</defaultDirmode>
+					<defaultUsername>root</defaultUsername>
+					<defaultGroupname>root</defaultGroupname>
 					<mappings>
 						<mapping>
-							<directory>/usr/lib/gaia-server</directory>
+							<directory>/usr/lib/rest-mvc-core</directory>
 							<dependency></dependency>
 							<filemode>755</filemode>
 							<username>root</username>
 							<groupname>root</groupname>
 						</mapping>
-						<!-- <mapping> -->
-						<!-- <directory>/usr/lib/gaia-server/web</directory> -->
-						<!-- <filemode>755</filemode> -->
-						<!-- <username>root</username> -->
-						<!-- <groupname>root</groupname> -->
-						<!-- <sources> -->
-						<!-- <source> -->
-						<!-- <location>../gaia-web/public</location> -->
-						<!-- <includes> -->
-						<!-- <include>**</include> -->
-						<!-- </includes> -->
-						<!-- </source> -->
-						<!-- </sources> -->
-						<!-- </mapping> -->
 						<mapping>
-							<directory>/usr/lib/gaia-server</directory>
+							<directory>/usr/lib/rest-mvc-core/web</directory>
 							<filemode>755</filemode>
 							<username>root</username>
 							<groupname>root</groupname>
 							<sources>
 								<source>
-									<location>target/gaia-server-0.1.jar</location>
+									<location>../rest-mvc-web/public</location>
+									<includes>
+										<include>**</include>
+									</includes>
+								</source>
+							</sources>
+						</mapping>
+						<mapping>
+							<directory>/usr/lib/rest-mvc-core</directory>
+							<filemode>755</filemode>
+							<username>root</username>
+							<groupname>root</groupname>
+							<sources>
+								<source>
+									<location>${project.build.directory}/${project.artifactId}-${project.version}.jar</location>
 								</source>
 							</sources>
 						</mapping>
@@ -418,30 +249,19 @@
 							<groupname>root</groupname>
 							<sources>
 								<source>
-									<location>src/main/python/gaia-server.py</location>
+									<location>sbin/rest-mvc-core</location>
 								</source>
 							</sources>
 						</mapping>
 						<mapping>
-							<directory>/usr/sbin</directory>
-							<filemode>755</filemode>
-							<username>root</username>
-							<groupname>root</groupname>
-							<sources>
-								<source>
-									<location>sbin/gaia-server</location>
-								</source>
-							</sources>
-						</mapping>
-						<mapping>
-							<directory>/etc/gaia-server/conf</directory>
+							<directory>/etc/rest-mvc-core/conf</directory>
 							<filemode>755</filemode>
 							<username>root</username>
 							<groupname>root</groupname>
 							<configuration>true</configuration>
 							<sources>
 								<source>
-									<location>conf/unix/gaia.properties</location>
+									<location>conf/unix/rest-mvc.properties</location>
 								</source>
 								<source>
 									<location>conf/unix/log4j.properties</location>
@@ -449,41 +269,13 @@
 							</sources>
 						</mapping>
 						<mapping>
-							<directory>/var/lib/gaia-server/</directory>
-							<filemode>700</filemode>
-							<username>root</username>
-							<groupname>root</groupname>
-							<sources>
-								<source>
-									<location>conf/unix/gaia-env.sh</location>
-								</source>
-							</sources>
-						</mapping>
-						<!-- <mapping> -->
-						<!-- <directory>/var/run/gaia-server/bootstrap</directory> -->
-						<!-- <filemode>755</filemode> -->
-						<!-- <username>root</username> -->
-						<!-- <groupname>root</groupname> -->
-						<!-- </mapping> -->
-						<mapping>
-							<directory>/var/log/gaia-server</directory>
+							<directory>/var/log/rest-mvc-core</directory>
 							<filemode>755</filemode>
 							<username>root</username>
 							<groupname>root</groupname>
 						</mapping>
-						<!-- <mapping> -->
-						<!-- <directory>/usr/lib/python2.6/site-packages/gaia_server</directory> -->
-						<!-- <filemode>755</filemode> -->
-						<!-- <username>root</username> -->
-						<!-- <groupname>root</groupname> -->
-						<!-- <sources> -->
-						<!-- <source> -->
-						<!-- <location>src/main/python/bootstrap.py</location> -->
-						<!-- </source> -->
-						<!-- </sources> -->
-						<!-- </mapping> -->
 						<mapping>
-							<directory>/var/run/gaia-server</directory>
+							<directory>/var/run/rest-mvc-core</directory>
 							<filemode>755</filemode>
 							<username>root</username>
 							<groupname>root</groupname>
@@ -529,7 +321,7 @@
 				<artifactId>maven-gettext-plugin</artifactId>
 				<configuration>
 					<poDirectory>${basedir}/src/main/i18n</poDirectory>
-					<targetBundle>gaia.search.i18n.Messages</targetBundle>
+					<targetBundle>rest.mvc.core.i18n.Messages</targetBundle>
 				</configuration>
 				<executions>
 					<execution>
