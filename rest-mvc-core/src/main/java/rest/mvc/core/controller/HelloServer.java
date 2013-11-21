@@ -19,13 +19,11 @@ import org.xnap.commons.i18n.I18n;
 import org.xnap.commons.i18n.I18nFactory;
 
 import rest.mvc.core.configuration.Configuration;
-import rest.mvc.core.servlet.HelloGuiceServletConfig;
 import rest.mvc.core.servlet.HelloServletModule;
 
 import com.google.inject.Guice;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
-import com.google.inject.Module;
 import com.google.inject.Singleton;
 import com.google.inject.servlet.GuiceFilter;
 
@@ -39,11 +37,15 @@ public class HelloServer {
 
 	final String CONTEXT_PATH = "/";
 
-	@Inject
 	Configuration configs;
 
-	@Inject
 	Injector injector;
+
+	@Inject
+	public HelloServer(Configuration configs, Injector injector) {
+		this.configs = configs;
+		this.injector = injector;
+	}
 
 	public void run() throws Exception {
 		// Create the server.
@@ -61,24 +63,19 @@ public class HelloServer {
 			ServletContextHandler root = new ServletContextHandler(server, CONTEXT_PATH, ServletContextHandler.SECURITY
 					| ServletContextHandler.SESSIONS);
 
-			// Create a servlet context and add the jersey servlet.
-			// ServletContextHandler sch = new ServletContextHandler(server,
-			// "/");
-
 			// Add our Guice listener that includes our bindings
-			root.addEventListener(new HelloGuiceServletConfig());
+			// root.addEventListener(new HelloGuiceServletConfig());
 
 			((HashSessionManager) root.getSessionHandler().getSessionManager()).setSessionCookie("RESTMVCSESSIONID");
 
 			GenericWebApplicationContext springWebAppContext = new GenericWebApplicationContext();
 			springWebAppContext.setServletContext(root.getServletContext());
 			springWebAppContext.setParent(springAppContext);
+			root.getServletContext().setAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE,
+					springWebAppContext);
 
 			/* Configure web app context */
 			root.setResourceBase(configs.getWebAppDir());
-
-			root.getServletContext().setAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE,
-					springWebAppContext);
 
 			// Then add GuiceFilter and configure the server to
 			// reroute all requests through this filter.
@@ -120,7 +117,10 @@ public class HelloServer {
 	}
 
 	public static void main(String[] args) throws Exception {
-		Injector injector = Guice.createInjector(new Module[] { new HelloModule(), new HelloServletModule()});
+
+		Configuration configs = new Configuration();
+
+		Injector injector = Guice.createInjector(new HelloServletModule(configs));
 		HelloServer server = null;
 		try {
 			LOG.info(i18n.tr("Getting the controller"));
