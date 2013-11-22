@@ -53,7 +53,7 @@ var formatRequest = function (data) {
     type: this.type || 'GET',
     timeout: App.timeout,
     //dataType: 'json',
-    statusCode: require('statusCodes')
+    statusCode: require('data/statusCodes')
   };
   
   opt.url = '/api/' + formatUrl(this.real, data);

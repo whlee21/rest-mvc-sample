@@ -7,7 +7,7 @@ require('templates');
 require('views');
 require('router');
 
-require('ajax');
+require('utils/ajax');
 
 App.initialize();
 
