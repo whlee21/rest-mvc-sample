@@ -10,4 +10,4 @@ CLASSPATH=./conf:$(find "$PWD/target/rest-mvc-core-0.1-dist" -name '*.jar' |xarg
 
 nohup java -cp $CLASSPATH -Duser.language=ko -Duser.country=KR -Dhome.dir=$PWD/target/rest-mvc-core-0.1-dist/rest-mvc-core-0.1  -Dlog4j.configuration=file:"./conf/log4j.properties" rest.mvc.core.controller.HelloServer > $PWD/rest-mvc.log 2>&1 &
 
-#tail -f $PWD/rest-mvc.log
+tail -f $PWD/rest-mvc.log
