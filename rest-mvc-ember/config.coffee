@@ -35,6 +35,7 @@ exports.config =
           'vendor/js/jquery-1.10.2.js',
           'vendor/js/handlebars-1.1.2.js',
           'vendor/js/ember-1.2.0.js',
+          'vendor/js/ember-states.js',
           'vendor/scripts/ember-i18n-1.4.1.js',
           ]
 

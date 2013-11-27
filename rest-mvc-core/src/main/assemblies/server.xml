@@ -23,7 +23,7 @@
 			</includes>
 		</fileSet>
 		<fileSet>
-			<directory>${basedir}/../rest-mvc-web/public</directory>
+			<directory>${basedir}/../rest-mvc-ember/public</directory>
 			<outputDirectory>/rest-mvc-core-${project.version}/web</outputDirectory>
 			<includes>
 				<include>**</include>

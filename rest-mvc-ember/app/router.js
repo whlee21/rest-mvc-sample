@@ -1,26 +1,40 @@
 var App = require('app');
-App.Router = Em.Router.extend({
-	root : Em.Route.extend({
-		index : Em.Route.extend({
-			route : '/',
-			redirectsTo : 'hello'
-		}),
+App.Router.map(function() {
+	this.route("hello", {
+		path : "/hello"
+	});
+});
 
-		hello : Em.Route.extend({
-			route : '/hello',
+App.HelloRoute = Ember.Route.extend({
+	index : Ember.Route.extend({
+		route : '/',
+		enter : function(router, context) {
+			alert(1122);
+		},
+		redirectsTo : 'hello'
+	}),
 
-			enter : function(router, context) {
+	hello : Ember.Route.extend({
+		route : '/hello',
 
-			},
+		enter : function(router, context) {
+			alert(11);
+		},
 
-			connectOutlets : function(router, context) {
-				$('title').text(Em.I18n.t('app.name'));
-				router.get('applicationController').connectOutlet('hello');
-			},
+		connectOutlets : function(router, context) {
+			$('title').text(Em.I18n.t('app.name'));
+			router.get('applicationController').connectOutlet('hello');
+		},
 
-			getMessage : function(router, event) {
-				App.router.get('helloController').getMessage();
-			},
-		})
+		getMessage : function(router, event) {
+			App.router.get('helloController').getMessage();
+		},
 	})
+
+});
+
+App.IndexRoute = Ember.Route.extend({
+	beforeModel : function() {
+		this.transitionTo('hello');
+	}
 });

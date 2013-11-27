@@ -224,7 +224,7 @@
 							<groupname>root</groupname>
 							<sources>
 								<source>
-									<location>../rest-mvc-web/public</location>
+									<location>../rest-mvc-ember/public</location>
 									<includes>
 										<include>**</include>
 									</includes>
