@@ -1,11 +1,10 @@
-    <div>
-    	<div>
-	        <div>
-	          <button  {{action getMessage}}>
+    <div class="row">
+    	<div class="span6">
+	        <div class="box">
+	          <button class="btn btn-inverse" {{action getMessage}}>
 				    	hello guice
 			  </button>
-			  ggg
-			  {{view Ember.TextArea valueBinding="message" rows="5" placeholder=""}}
+			  {{view Ember.TextArea class="span6" valueBinding="message" rows="5" placeholder=""}}
 	        </div>
         </div>
     </div>
