@@ -94,9 +94,9 @@
 									<arg value="build" />
 								</exec>
 								<exec dir="${basedir}" executable="gzip" failonerror="false">
-									<arg value="public/javascripts/app.js" />
-									<arg value="public/javascripts/vendor.js" />
-									<arg value="public/stylesheets/app.css" />
+									<arg value="public/js/app.js" />
+									<arg value="public/js/vendor.js" />
+									<arg value="public/css/app.css" />
 								</exec>
 							</target>
 						</configuration>

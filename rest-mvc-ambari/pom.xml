@@ -18,10 +18,10 @@
 		<version>0.1</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
-	<artifactId>rest-mvc-web</artifactId>
+	<artifactId>rest-mvc-ambari</artifactId>
 	<packaging>pom</packaging>
-	<name>Rest MVC :: Web</name>
-	<description>Rest MVC Web</description>
+	<name>Rest MVC :: Ambari</name>
+	<description>Rest MVC Ambari</description>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
@@ -86,11 +86,11 @@
 						</goals>
 						<configuration>
 							<target name="rest-mvc-web-compile">
-								<exec dir="${basedir}" executable="npm" failonerror="false">
+								<exec dir="${basedir}" executable="npm" failonerror="true">
 									<env key="PYTHON" value="python2.7" />
 									<arg value="install" />
 								</exec>
-								<exec dir="${basedir}" executable="brunch" failonerror="false">
+								<exec dir="${basedir}" executable="brunch" failonerror="true">
 									<arg value="build" />
 								</exec>
 								<exec dir="${basedir}" executable="gzip" failonerror="false">
