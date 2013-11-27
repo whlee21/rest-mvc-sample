@@ -14,7 +14,9 @@
 	</properties>
 	<modules>
 		<module>rest-mvc-project</module>
- 		<module>rest-mvc-web</module>
+ 		<module>rest-mvc-ember</module>
+<!--  		<module>rest-mvc-ambari</module> -->
+<!--  		<module>rest-mvc-charisma</module> -->
 		<module>rest-mvc-core</module>
 	</modules>
 	<pluginRepositories>
