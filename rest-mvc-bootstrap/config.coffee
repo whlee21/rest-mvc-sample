@@ -37,7 +37,7 @@ exports.config =
           'vendor/js/ember-1.2.0.js',
           'vendor/js/ember-states.js',
           'vendor/js/ember-i18n-1.4.1.js',
-          'vendor/js/bootstrap.js',
+          'vendor/js/bootstrap.min.js',
           ]
 
     stylesheets:
@@ -45,8 +45,8 @@ exports.config =
       joinTo: 'css/app.css'
       order:
         before: [
-          'vendor/css/bootstrap.css',
-          'vendor/css/bootstrap-responsive.css'
+          'vendor/css/bootstrap.min.css',
+          'vendor/css/bootstrap-theme.min.css'
         ]
 
     templates:
