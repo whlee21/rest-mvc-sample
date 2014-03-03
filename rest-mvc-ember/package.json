@@ -14,12 +14,12 @@
     "start":"brunch watch --server"
   },
   "dependencies":{
-    "javascript-brunch":">= 1.0 < 1.5",
-    "css-brunch":">= 1.0 < 1.5",
-    "uglify-js-brunch":">= 1.0 < 1.5",
-    "clean-css-brunch":">= 1.0 < 1.5",
-    "ember-precompiler-brunch":">= 1.0 < 1.5",
-    "less-brunch":">= 1.0 < 1.5",
+    "javascript-brunch":">= 1.0 < 1.6",
+    "css-brunch":">= 1.0 < 1.6",
+    "uglify-js-brunch":">= 1.0 < 1.6",
+    "clean-css-brunch":">= 1.0 < 1.6",
+    "ember-precompiler-brunch":">= 1.0 < 1.6",
+    "less-brunch":">= 1.0 < 1.6",
 	"cssstyle":"0.2.3"	
   },
   "devDependencies":{

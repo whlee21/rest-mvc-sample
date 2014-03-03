@@ -34,7 +34,7 @@ exports.config =
         before: [
           'vendor/js/jquery-1.10.2.js',
           'vendor/js/handlebars-1.1.2.js',
-          'vendor/js/ember-1.2.0.js',
+          'vendor/js/ember-1.4.0.js',
           'vendor/js/ember-states.js',
           'vendor/js/ember-i18n-1.4.1.js',
           ]
@@ -53,7 +53,7 @@ exports.config =
       paths:
         jquery: 'vendor/js/jquery-1.10.2.js'
         handlebars: 'vendor/js/handlebars-1.1.2.js'
-        ember: 'vendor/js/ember-1.2.0.js'
+        ember: 'vendor/js/ember-1.4.0.js'
 
   server:
     port: 3333

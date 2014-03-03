@@ -75,14 +75,6 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-core</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-config</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-ldap</artifactId>
 		</dependency>
 		<dependency>
@@ -145,6 +137,10 @@
 			<groupId>org.eclipse.persistence</groupId>
 			<artifactId>eclipselink</artifactId>
 		</dependency>
+    <dependency>
+      <groupId>javax.xml.bind</groupId>
+      <artifactId>jaxb-api</artifactId>
+    </dependency>
 	</dependencies>
 	<build>
 		<plugins>
@@ -224,7 +220,7 @@
 							<groupname>root</groupname>
 							<sources>
 								<source>
-									<location>../rest-mvc-ember/public</location>
+									<location>../rest-mvc-web/public</location>
 									<includes>
 										<include>**</include>
 									</includes>
